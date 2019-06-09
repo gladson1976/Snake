@@ -1,0 +1,29 @@
+<html ng-app="snake">
+<head>
+	<meta charset="UTF-8">
+	<title>Snake</title>
+	<link rel="stylesheet" href="snake.css">
+	<script src="angular.js"></script>
+	<script src="snake.controller.js"></script>
+</head>
+<body ng-controller="snakeController" ng-keydown="getKeys($event)">
+	<div>
+		<table>
+			<tr class="header">
+				<td class="title" colspan="{{board.length}}">
+					<div>Snake</div> <div class="star-icon" title="High score"></div><div>{{snakeDetail.highScore[snakeDetail.difficulty]}}</div> <div class="snake-icon" title="Snake length"></div><div>{{snakeDetail.snakeLength[snakeDetail.difficulty]}}</div> <div> - {{difficultyName}}</div>
+					<!--<button type="button" class="start" ng-click="initBoard()">Reset</button>-->
+					<select class="difficulty" ng-options="diff as diff.name for diff in difficulty track by diff.name" ng-model="selectedDifficulty" ng-change="saveDifficulty()"></select>
+				</td>
+			</tr>
+			<tr ng-repeat="row in board track by $index">
+				<td ng-repeat="col in row track by $index" ng-class="{'snake-body': col == 1, 'snake-head': col == 2, 'game-over': col == 3, 'feed': col == 4, 'special-feed': col == 5, 'super-special-feed': col == 6, 'poison': col == 7,  'barrier': col == 9}">&nbsp;</td>
+			</tr>
+			<tr class="footer">
+				<td class="detail" colspan="{{board.length/2}}">Score: {{score}} / Length: {{snake.length}}</td>
+				<td class="detail" colspan="{{board.length/2}}">&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
